@@ -1,0 +1,21 @@
+from mpl_toolkits.basemap import Basemap
+import matplotlib.pyplot as plt
+import numpy as np 
+from matplotlib.patches import Polygon
+
+
+
+plt.figure(1,figsize=(16,8))
+#Use Lambert projection
+m = Basemap(llcrnrlon=80, llcrnrlat=15, urcrnrlon=145, urcrnrlat=53,projection='lcc', lat_1=33, lat_2=45, lon_0=100)
+
+m.drawcoastlines()
+m.drawcountries(linewidth=1.5)
+
+#Directory for storing shp files
+m.readshapefile('D://Python/python 插件源数据/china','states', drawbounds=True)
+#Here, for the map to be correct, I use the @dongli file,https://github.com/dongli/china-shapefiles.This will ensure that there is no mistake in Taiwan and southern Tibet.
+
+
+#This is a tiny test.
+plt.show()
