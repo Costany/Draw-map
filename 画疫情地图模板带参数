@@ -1,0 +1,39 @@
+from mpl_toolkits.basemap import Basemap
+import matplotlib.pyplot as plt
+import numpy as np 
+from matplotlib.patches import Polygon
+from matplotlib.colors import rgb2hex
+from scipy import misc
+import matplotlib.image as mpimg
+from PIL import Image
+from matplotlib.font_manager import FontProperties
+font = FontProperties(fname=r"C:\Windows\Fonts\simhei.ttf", size=14)  
+
+
+fig=plt.figure(1,figsize=(30,30))
+#Use Lambert projection
+m5 = Basemap(llcrnrlon=80, llcrnrlat=16, urcrnrlon=139, urcrnrlat=50.1,projection='lcc', lat_1=33, lat_2=45, lon_0=100.2)
+
+
+m5.readshapefile('python 插件源数据/dongli China map/china','states', drawbounds=True)
+m5.readshapefile("python 插件源数据/gadm36_CHN_shp/gadm36_CHN_2",  'state', drawbounds=True,color='black')
+m5.readshapefile("python 插件源数据/gadm36_TWN_shp/gadm36_TWN_2",  'nine_dotted', drawbounds=True,color='black')
+m5.readshapefile("python 插件源数据/dongli China map/china_nine_dotted_line",'nine_dotted', drawbounds=True)
+
+plt.rcParams['font.sans-serif']=['SimHei']
+plt.rcParams['axes.unicode_minus']=False
+
+x1 = ['疑似']
+x2 = ['确诊']
+x3 = ['管制']
+x4 = ['病例转移']
+
+plt.plot(x1,label='疑似',color='peachpuff',linewidth=8.5)
+plt.plot(x2,label='确诊',color='coral',linewidth=8.5)
+
+plt.plot(x4,label='病例转移',color='lightpink',linewidth=8.5)
+plt.legend(loc=2,ncol=2,shadow=True,frameon=False,fontsize=30)
+plt.title(u'2019-nCoV疫情地图@Costany', fontproperties=font,fontsize=45)
+fig.tight_layout()
+plt.savefig('fig_ill',bbox_inches='tight',dpi=200)
+plt.show()
